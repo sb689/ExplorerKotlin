@@ -1,12 +1,14 @@
 package com.example.explorer_kotlin.overview
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.explorer_kotlin.R
+import com.example.explorer_kotlin.databinding.FragmentOverviewBinding
 
 
 class OverviewFragment : Fragment() {
@@ -25,7 +27,15 @@ class OverviewFragment : Fragment() {
             savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_overview, container, false)
+
+        Log.d("OverviewFragment", "onCreate called")
+        val binding = FragmentOverviewBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        binding.rvSearchResult.adapter = SearchResultAdapter(onClickListener = SearchResultAdapter.OnClickListener{
+            viewModel.displayPropertyDetails(it)
+        })
+        return binding.root
     }
 
 
