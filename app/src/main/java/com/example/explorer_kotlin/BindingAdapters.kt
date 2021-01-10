@@ -1,7 +1,9 @@
 package com.example.explorer_kotlin
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +15,7 @@ import com.example.explorer_kotlin.overview.SearchResultAdapter
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
+
     imgUrl?.let {
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
@@ -22,6 +25,12 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
                         .error(R.drawable.ic_broken_image))
                 .into(imgView)
     }
+}
+
+@BindingAdapter("shortDesc")
+fun bindShortDescription(shortDesc: TextView, desc: String)
+{
+    shortDesc.text = desc.take(50)
 }
 
 @BindingAdapter("listSearchResult")

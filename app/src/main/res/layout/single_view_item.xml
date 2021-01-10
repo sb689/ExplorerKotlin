@@ -13,57 +13,69 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp">
+        android:layout_height="200dp"
+        >
 
 
         <ImageView
             android:id="@+id/iv_space_image"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent=".50"
+            app:layout_constraintWidth_percent=".45"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:imageUrl="@{property.link[0].href}"
+            app:imageUrl="@{property.links[0].href}"
             />
 
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent=".45"
+
             android:layout_height="wrap_content"
             android:maxLines="3"
             android:ellipsize="end"
             tools:text="The bright giant star"
             app:layout_constraintStart_toEndOf="@id/iv_space_image"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_space_image"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:layout_marginTop="10dp"
-            android:textSize="15sp"
-            android:text = "@{property.data[0].title}"
+            android:textSize="17sp"
+            android:text ="@{property.data[0].title}"
 
             />
 
         <TextView
             android:id="@+id/tv_short_desc"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent=".45"
+
             android:layout_height="wrap_content"
-            tools:text="This is one of the brightest stars of our galaxy"
+            tools:text="This is one of the brightest stars of our galaxy. It shines on eastern sky just after sunset"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title"
             android:layout_marginTop="10dp"
-            android:maxLines="3"
+            android:maxLines="4"
             android:ellipsize="end"
-            android:textSize="14sp"
-            android:text = "@{property.data[0].description}"
+            android:textSize="16sp"
+            android:text="@{property.data[0].description}"
+            />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_space_image"
             />
 
 
