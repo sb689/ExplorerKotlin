@@ -1,10 +1,8 @@
 package com.example.explorer_kotlin.overview
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.explorer_kotlin.model.Item
 import com.example.explorer_kotlin.model.SpaceResponse
 import com.example.explorer_kotlin.network.NasaApi
@@ -12,7 +10,7 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 enum class SearchQueryStatus{ LOADING, ERROR, DONE}
-class OverViewViewModel : ViewModel(){
+class OverViewViewModel (query:String?, startYear: String?, endYear: String? , app:Application): AndroidViewModel(app){
 
     private val _response = MutableLiveData<List<Item>>()
     val response : LiveData<List<Item>>
@@ -27,10 +25,22 @@ class OverViewViewModel : ViewModel(){
     val navigateToSelectedResult: LiveData<Item>
         get() = _navigateToSelectedResult
 
+    private val _navigateToSearchPage = MutableLiveData<Boolean>()
+    val navigateToSearchPage: LiveData<Boolean>
+    get() = _navigateToSearchPage
+
     init {
         getSearchResponse("earth", "image")
     }
 
+    fun displaySearchPage(){
+        _navigateToSearchPage.value = true
+    }
+
+    fun displaySearchPageComplete()
+    {
+        _navigateToSearchPage.value = false
+    }
 
     fun displayResultDetails(item: Item)
     {
@@ -47,7 +57,7 @@ class OverViewViewModel : ViewModel(){
         viewModelScope.launch {
             _status.value = SearchQueryStatus.LOADING
             try {
-                val responseFromApi: SpaceResponse =  NasaApi.RetrofitService.getSearchResults(s, mediaType)
+                val responseFromApi: SpaceResponse =  NasaApi.RetrofitService.getSearchResults(s, null, null, mediaType)
                 _response.value = responseFromApi.collection.items
                 _status.value = SearchQueryStatus.DONE
                 Log.d("OverviewViewModel", " responseFromApi : " + responseFromApi.toString())

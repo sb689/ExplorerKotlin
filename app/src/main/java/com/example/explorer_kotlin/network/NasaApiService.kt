@@ -19,7 +19,11 @@ private val retrofit = Retrofit.Builder()
 interface NasaApiService{
 
     @GET("search")
-    suspend fun getSearchResults(@Query("q") type: String, @Query("media_type") type2: String): SpaceResponse
+    suspend fun getSearchResults(@Query("q") type: String?,
+                                 @Query("start_year") startYear: String?,
+                                 @Query("end_year") endYear: String?,
+                                 @Query("media_type") mediaType: String): SpaceResponse
+
 }
 
 object NasaApi{

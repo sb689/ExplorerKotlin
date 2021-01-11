@@ -1,5 +1,6 @@
 package com.example.explorer_kotlin.overview
 
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,13 +11,22 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.explorer_kotlin.R
 import com.example.explorer_kotlin.databinding.FragmentOverviewBinding
+import com.example.explorer_kotlin.detail.DetailViewModel
+import com.example.explorer_kotlin.detail.DetailViewModelFactory
 
 
 class OverviewFragment : Fragment() {
 
-    private val viewModel:OverViewViewModel by lazy {
-        ViewModelProvider(this).get(OverViewViewModel::class.java)
+    private val viewModel: OverViewViewModel by lazy {
+        val viewModelFactory = OverviewViewModelFactory(
+                getString(R.string.default_query),
+                null,
+                null,
+                Application())
+
+        ViewModelProvider(this, viewModelFactory).get(OverViewViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,18 +46,24 @@ class OverviewFragment : Fragment() {
         binding.viewModel = viewModel
         binding.rvSearchResult.layoutManager = LinearLayoutManager(context)
 
-        binding.rvSearchResult.adapter = SearchResultAdapter(onClickListener = SearchResultAdapter.OnClickListener{
+        binding.rvSearchResult.adapter = SearchResultAdapter(onClickListener = SearchResultAdapter.OnClickListener {
             viewModel.displayResultDetails(it)
         })
 
         viewModel.navigateToSelectedResult.observe(viewLifecycleOwner, Observer {
-            if(it != null)
-            {
-
-               this.findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(it))
+            if (it != null) {
+                this.findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(it))
                 viewModel.displayResultDetailsComplete()
             }
         })
+
+        viewModel.navigateToSearchPage.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                this.findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToSearchFragment2())
+                viewModel.displayResultDetailsComplete()
+            }
+        })
+
         return binding.root
     }
 
