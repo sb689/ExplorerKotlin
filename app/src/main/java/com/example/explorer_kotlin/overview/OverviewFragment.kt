@@ -60,7 +60,7 @@ class OverviewFragment : Fragment() {
         viewModel.navigateToSearchPage.observe(viewLifecycleOwner, Observer {
             if (it) {
                 this.findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToSearchFragment2())
-                viewModel.displayResultDetailsComplete()
+                viewModel.displaySearchPageComplete()
             }
         })
 
