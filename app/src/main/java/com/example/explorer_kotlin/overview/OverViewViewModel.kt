@@ -1,7 +1,6 @@
 package com.example.explorer_kotlin.overview
 
 import android.util.Log
-import android.widget.Space
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,23 +23,23 @@ class OverViewViewModel : ViewModel(){
     get() = _status
 
 
-    private val _navigateToSelectedProperty = MutableLiveData<Item>()
-    val navigateToSelectedProperty: LiveData<Item>
-        get() = _navigateToSelectedProperty
+    private val _navigateToSelectedResult = MutableLiveData<Item>()
+    val navigateToSelectedResult: LiveData<Item>
+        get() = _navigateToSelectedResult
 
     init {
         getSearchResponse("earth", "image")
     }
 
 
-    fun displayPropertyDetails(item: Item)
+    fun displayResultDetails(item: Item)
     {
-        _navigateToSelectedProperty.value = item
+        _navigateToSelectedResult.value = item
     }
 
-    fun displayPropertyDetailsComplete()
+    fun displayResultDetailsComplete()
     {
-        _navigateToSelectedProperty.value = null
+        _navigateToSelectedResult.value = null
     }
 
     private fun getSearchResponse(s: String, mediaType: String) {

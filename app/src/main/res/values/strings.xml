@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">Explorer_kotlin</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+<!--    Fragment detail-->
+    <string name="image_content">Image of the searched item</string>
+    <string name="label_location_text">Location: </string>
+    <string name="label_photographer_text">Secondary Creator: </string>
+    <string name="label_date_text">Date: </string>
+
+    <string name="next_arrow_content">Next item</string>
+    <string name="back_arrow_content">Previous item</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="saved_instance_bundle_key">item_position</string>
+    <string name="secondary_creator_na">N/A</string>
+    <string name="bundle_key_detail_item_position">item_position</string>
 </resources>

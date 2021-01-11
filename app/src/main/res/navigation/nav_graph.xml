@@ -21,7 +21,10 @@
         android:id="@+id/detailFragment"
         android:name="com.example.explorer_kotlin.Detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument android:name="selectedResult"
+            app:argType="com.example.explorer_kotlin.model.item" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment2"
         android:name="com.example.explorer_kotlin.search.SearchFragment"
