@@ -43,7 +43,8 @@ class OverviewFragment : Fragment() {
         viewModel.navigateToSelectedResult.observe(viewLifecycleOwner, Observer {
             if(it != null)
             {
-               this.findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToDetailFragment())
+
+               this.findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(it))
                 viewModel.displayResultDetailsComplete()
             }
         })

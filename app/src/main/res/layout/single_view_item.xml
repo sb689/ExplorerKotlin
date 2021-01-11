@@ -44,10 +44,12 @@
             app:layout_constraintTop_toTopOf="@id/iv_space_image"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+
+            style="@style/TextAppearance.AppCompat.Body2"
             android:layout_marginTop="10dp"
             android:textSize="17sp"
             android:text ="@{property.data[0].title}"
+            android:textColor="@color/black"
 
             />
 
@@ -65,6 +67,7 @@
             android:ellipsize="end"
             android:textSize="16sp"
             android:text="@{property.data[0].description}"
+            android:textColor="@color/black"
             />
 
         <View
