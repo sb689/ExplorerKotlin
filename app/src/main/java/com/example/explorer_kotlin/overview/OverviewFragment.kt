@@ -14,15 +14,10 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.explorer_kotlin.R
 import com.example.explorer_kotlin.databinding.FragmentOverviewBinding
-import com.example.explorer_kotlin.databinding.FragmentSearchBinding
-import com.example.explorer_kotlin.detail.DetailFragmentArgs
-import com.example.explorer_kotlin.detail.DetailViewModel
-import com.example.explorer_kotlin.detail.DetailViewModelFactory
+
 
 
 class OverviewFragment : Fragment() {
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

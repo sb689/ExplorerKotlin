@@ -45,6 +45,8 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment2_to_overviewFragment"
-            app:destination="@id/overviewFragment" />
+            app:destination="@id/overviewFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/overviewFragment" />
     </fragment>
 </navigation>
