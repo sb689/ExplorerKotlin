@@ -16,22 +16,27 @@ data class DatabaseItem constructor(
         val title: String,
         val location: String,
         val secondary_creator: String,
-        val href: String
+        val href: String,
 )
 
-//fun List<DatabaseItem>.asDomainModel():List<Item>{
-//
-//    return map {
-//        Data(
-//                nasa_id = it.nasa_id,
-//
-//        )
-////        Video(
-////                url = it.url,
-////                updated = it.updated,
-////                title = it.title,
-////                description = it.description,
-////                thumbnail = it.thumbnail
-////        )
-//    }
-//}
+fun List<DatabaseItem>.asDomainModel(): List<Item> {
+
+    val g_data = map {
+      Data(
+                nasa_id = it.nasa_id,
+                date_created = it.date_created,
+                description = it.description,
+                title = it.title,
+                location = it.location,
+                secondary_creator = it.secondary_creator
+
+        )}.toList()
+
+    val g_links = map{Link(href = it.href)}.toList()
+
+    return map { Item(
+            data = g_data,
+            links = g_links
+    ) }
+
+}
