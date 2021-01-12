@@ -27,12 +27,6 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 
-@BindingAdapter("shortDesc")
-fun bindShortDescription(shortDesc: TextView, desc: String)
-{
-    shortDesc.text = desc.take(50)
-}
-
 @BindingAdapter("listSearchResult")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Item>?)
 {

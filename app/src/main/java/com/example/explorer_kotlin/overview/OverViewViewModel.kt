@@ -29,9 +29,13 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String? , a
     val navigateToSearchPage: LiveData<Boolean>
     get() = _navigateToSearchPage
 
+
+
     init {
-        getSearchResponse("earth", "image")
+        getSearchResponse(query, startYear, endYear)
     }
+
+
 
     fun displaySearchPage(){
         _navigateToSearchPage.value = true
@@ -49,15 +53,22 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String? , a
 
     fun displayResultDetailsComplete()
     {
+
         _navigateToSelectedResult.value = null
     }
 
-    private fun getSearchResponse(s: String, mediaType: String) {
+    private fun getSearchResponse(query: String?,
+                                  startYear: String?,
+                                  endYear: String?
+    ) {
         Log.d("OverviewViewModel", "getSearchResponse called")
         viewModelScope.launch {
+
+
             _status.value = SearchQueryStatus.LOADING
             try {
-                val responseFromApi: SpaceResponse =  NasaApi.RetrofitService.getSearchResults(s, null, null, mediaType)
+                val responseFromApi: SpaceResponse =  NasaApi.RetrofitService.getSearchResults(
+                        query, startYear, endYear)
                 _response.value = responseFromApi.collection.items
                 _status.value = SearchQueryStatus.DONE
                 Log.d("OverviewViewModel", " responseFromApi : " + responseFromApi.toString())
@@ -68,9 +79,7 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String? , a
                _status.value = SearchQueryStatus.ERROR
                 _response.value = ArrayList<Item>()
             }
-
         }
-
     }
 
 }

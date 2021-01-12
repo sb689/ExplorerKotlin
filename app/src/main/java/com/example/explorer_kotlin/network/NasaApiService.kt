@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 private const val BASE_URL = "https://images-api.nasa.gov/"
+private const val MEDIA_TYPE = "image"
 
 private val retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
@@ -20,9 +21,9 @@ interface NasaApiService{
 
     @GET("search")
     suspend fun getSearchResults(@Query("q") type: String?,
-                                 @Query("start_year") startYear: String?,
-                                 @Query("end_year") endYear: String?,
-                                 @Query("media_type") mediaType: String): SpaceResponse
+                                 @Query("year_start") startYear: String?,
+                                 @Query("year_end") endYear: String?,
+                                 @Query("media_type") mediaType: String = MEDIA_TYPE): SpaceResponse
 
 }
 

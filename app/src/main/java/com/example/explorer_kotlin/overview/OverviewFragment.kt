@@ -10,24 +10,20 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.explorer_kotlin.R
 import com.example.explorer_kotlin.databinding.FragmentOverviewBinding
+import com.example.explorer_kotlin.databinding.FragmentSearchBinding
+import com.example.explorer_kotlin.detail.DetailFragmentArgs
 import com.example.explorer_kotlin.detail.DetailViewModel
 import com.example.explorer_kotlin.detail.DetailViewModelFactory
 
 
 class OverviewFragment : Fragment() {
 
-    private val viewModel: OverViewViewModel by lazy {
-        val viewModelFactory = OverviewViewModelFactory(
-                getString(R.string.default_query),
-                null,
-                null,
-                Application())
 
-        ViewModelProvider(this, viewModelFactory).get(OverViewViewModel::class.java)
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +39,23 @@ class OverviewFragment : Fragment() {
         Log.d("OverviewFragment", "onCreate called")
         val binding = FragmentOverviewBinding.inflate(inflater)
         binding.lifecycleOwner = this
+
+
+       val args: OverviewFragmentArgs by navArgs()
+        var query = if(args.query == "@") getString(R.string.default_query) else args.query
+        val startYear= if(args.startYear == "@" || args.startYear.isNullOrEmpty()) null else args.startYear
+        val endYear= if(args.endYear == "@" || args.endYear.isNullOrEmpty()) null else args.endYear
+
+
+        Log.d("OverviewFragment", "query = "+ query + ", startYear = " + startYear + ", endYear = "+ endYear)
+        val viewModelFactory = OverviewViewModelFactory(
+                query,
+                startYear,
+                endYear,
+                Application())
+
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(OverViewViewModel::class.java)
+
         binding.viewModel = viewModel
         binding.rvSearchResult.layoutManager = LinearLayoutManager(context)
 

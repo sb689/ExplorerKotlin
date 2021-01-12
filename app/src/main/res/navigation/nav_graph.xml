@@ -16,6 +16,19 @@
         <action
             android:id="@+id/action_overviewFragment_to_searchFragment2"
             app:destination="@id/searchFragment2" />
+        <argument
+            android:name="query"
+            app:argType="string"
+            android:defaultValue="@" />
+        <argument
+            android:name="startYear"
+            app:argType="string"
+            android:defaultValue="@" />
+        <argument
+            android:name="endYear"
+            app:argType="string"
+            android:defaultValue="@" />
+
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -29,5 +42,9 @@
         android:id="@+id/searchFragment2"
         android:name="com.example.explorer_kotlin.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment2_to_overviewFragment"
+            app:destination="@id/overviewFragment" />
+    </fragment>
 </navigation>
