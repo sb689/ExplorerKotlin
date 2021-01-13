@@ -34,6 +34,4 @@ fun getDatabase(context: Context): ResultDatabase {
         }
     }
     return INSTANCE
-
-
 }

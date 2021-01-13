@@ -32,7 +32,7 @@ fun List<DatabaseItem>.asDomainModel(): List<Item> {
 
         )}.toList()
 
-    val g_links = map{Link(href = it.href)}.toList()
+    val g_links = map{ Link(href = it.href) }.toList()
 
     return map { Item(
             data = g_data,
