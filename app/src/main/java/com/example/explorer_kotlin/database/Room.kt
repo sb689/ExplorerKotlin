@@ -8,7 +8,7 @@ import androidx.room.*
 interface ItemDao {
 
     @Query("select * from databaseitem")
-    fun getVideos(): LiveData<List<DatabaseItem>>
+    fun getResults(): LiveData<List<DatabaseItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg video: DatabaseItem)
