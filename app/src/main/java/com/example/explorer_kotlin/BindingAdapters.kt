@@ -34,14 +34,6 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Item>?)
     adapter.submitList(data)
 }
 
-//@BindingAdapter("isNetworkError", "resultList")
-//fun hideIfNetworkError(view: View, isNetWorkError: Boolean, resultList: Any?) {
-//    view.visibility = if (resultList != null) View.GONE else View.VISIBLE
-//
-//    if(isNetWorkError) {
-//        view.visibility = View.GONE
-//    }
-//}
 
 @BindingAdapter("searchStatus")
 fun bindStatus(statusImageView: ImageView, status: SearchQueryStatus?) {

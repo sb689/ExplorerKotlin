@@ -1,6 +1,5 @@
 package com.example.explorer_kotlin.overview
 
-import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -78,17 +77,24 @@ class OverViewFragment : Fragment() {
         })
 
         viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
-            if (isNetworkError) onNetworkError()
+            if (isNetworkError) onError(getString(R.string.no_network_wrror_msg),  ErrorType.NETWORK)
+        })
+
+        viewModel.noDataFound.observe(viewLifecycleOwner, Observer<Boolean> {
+            if (it) onError(getString(R.string.no_data_found_error_msg),  ErrorType.NO_DATA)
         })
 
         return binding.root
     }
 
-    private fun onNetworkError() {
-        if(!viewModel.isNetworkErrorShown.value!!) {
-            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
-            viewModel.onNetworkErrorShown()
-        }
+    private fun onError(msg:String, type: ErrorType) {
+
+            Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
+            when(type){
+                ErrorType.NO_DATA -> viewModel.noDataFoundErrorShown()
+                ErrorType.NETWORK -> viewModel.onNetworkErrorShown()
+            }
+
     }
 
 
