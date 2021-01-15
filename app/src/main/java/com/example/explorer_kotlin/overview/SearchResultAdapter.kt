@@ -23,7 +23,7 @@ class SearchResultAdapter ( val onClickListener: OnClickListener)
 
     companion object DiffCallback: DiffUtil.ItemCallback<Item>() {
             override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-                return  oldItem == newItem
+                return  oldItem === newItem
             }
 
             override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
