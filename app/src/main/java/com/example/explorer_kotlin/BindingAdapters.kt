@@ -3,7 +3,6 @@ package com.example.explorer_kotlin
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +16,7 @@ import com.example.explorer_kotlin.overview.SearchResultAdapter
 fun bindImage(imgView: ImageView, imgUrl: String?) {
 
     imgUrl?.let {
+        Log.d("BindingAdapters", "imgUrl received is : $imgUrl")
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
                 .load(imgUri)
@@ -33,6 +33,15 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Item>?)
     val adapter = recyclerView.adapter as SearchResultAdapter
     adapter.submitList(data)
 }
+
+//@BindingAdapter("isNetworkError", "resultList")
+//fun hideIfNetworkError(view: View, isNetWorkError: Boolean, resultList: Any?) {
+//    view.visibility = if (resultList != null) View.GONE else View.VISIBLE
+//
+//    if(isNetWorkError) {
+//        view.visibility = View.GONE
+//    }
+//}
 
 @BindingAdapter("searchStatus")
 fun bindStatus(statusImageView: ImageView, status: SearchQueryStatus?) {

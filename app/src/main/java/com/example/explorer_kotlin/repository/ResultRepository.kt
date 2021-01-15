@@ -16,18 +16,27 @@ import kotlinx.coroutines.withContext
 class ResultRepository (private val database: ResultDatabase){
 
     val resultItems : LiveData<List<Item>> = Transformations.map(database.itemDao.getResults()){
+       Log.d("ResultRepository","getting cache data, size is : ${it.size}")
+        for(i in it)
+        {
+            Log.d("ResultRepository",i.nasa_id)
+        }
         it.asDomainModel()
     }
 
-    suspend fun searchResults(query: String, startYear: String, endYear:String)
+    suspend fun refreshResults(query: String?, startYear: String?, endYear:String?)
     {
         Log.d("ResultRepository","inside refreshVideos()")
+        Log.d("ResultRepository","query : ${query}, startYear: $startYear, endYear: $endYear")
         withContext(Dispatchers.IO){
 
-            val responseFromApi: SpaceResponse =  NasaApi.RetrofitService.getSearchResults(
-                    query, startYear, endYear)
-            val itemList:NetworkResultContainer = NetworkResultContainer( responseFromApi.collection.items)
-            database.itemDao.insertAll(*itemList.asDatabaseModel())
+            val response = NasaApi.apiResponse.getSearchResults(query,
+                    startYear,
+                    endYear)
+            Log.d("ResultRepository","response: $response")
+            val networkContainer = NetworkResultContainer(response.collection.items)
+            database.itemDao.deleteAll()
+            database.itemDao.insertAll(networkContainer.asDatabaseModel())
         }
     }
 

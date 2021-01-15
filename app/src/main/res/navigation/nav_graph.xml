@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/overviewFragment"
-        android:name="com.example.explorer_kotlin.overview.OverviewFragment"
+        android:name="com.example.explorer_kotlin.overview.OverViewFragment"
         android:label="fragment_overview"
         tools:layout="@layout/fragment_overview" >
         <action
@@ -19,15 +19,18 @@
         <argument
             android:name="query"
             app:argType="string"
-            android:defaultValue="@" />
+           android:defaultValue="@"
+        />
         <argument
             android:name="startYear"
             app:argType="string"
-            android:defaultValue="@" />
+            android:defaultValue="@"
+           />
         <argument
             android:name="endYear"
             app:argType="string"
-            android:defaultValue="@" />
+            android:defaultValue="@"
+          />
 
     </fragment>
     <fragment
