@@ -41,10 +41,6 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String? , a
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
 
-//    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
-//
-//    val isNetworkErrorShown: LiveData<Boolean>
-//        get() = _isNetworkErrorShown
 
     private var _noDataFound = MutableLiveData<Boolean>(false)
     val noDataFound: LiveData<Boolean>
@@ -89,16 +85,21 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String? , a
     ) {
         viewModelScope.launch {
             try {
+                _status.value = SearchQueryStatus.LOADING
                 resultRepository.refreshResults(query, startYear, endYear, getApplication())
                 _eventNetworkError.value = false
-               // _isNetworkErrorShown.value = false
+                _status.value = SearchQueryStatus.DONE
 
             } catch (networkError: Exception) {
                 // Show a Toast error message and hide the progress bar.
-                if(networkError is NoSuchPropertyException)
+                if(networkError is NoSuchPropertyException) {
+                    Log.d("OverViewVieModel", "NoSuchPropertyException received")
                     _noDataFound.value = true
-                else
+                }
+                else {
+                    Log.d("OverViewVieModel", "exception received")
                     _eventNetworkError.value = true
+                }
             }
         }
     }

@@ -33,13 +33,12 @@ class OverViewFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        Log.d("OverviewFragment", "onCreate called")
         val binding = FragmentOverviewBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
 
         val args: OverViewFragmentArgs by navArgs()
-        var query = if(args.query.isNullOrEmpty() || args.query == "@") getString(R.string.default_query) else args.query
+        var query = if(args.query.isNullOrEmpty() || args.query == "@") null else args.query
         val startYear= if( args.startYear.isNullOrEmpty()|| args.startYear == "@") null else args.startYear
         val endYear= if( args.endYear.isNullOrEmpty()|| args.endYear == "@") null else args.endYear
 

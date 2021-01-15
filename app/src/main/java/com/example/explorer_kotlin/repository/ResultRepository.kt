@@ -5,6 +5,7 @@ import android.util.Log
 import android.util.NoSuchPropertyException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.example.explorer_kotlin.R
 import com.example.explorer_kotlin.database.ResultDatabase
 import com.example.explorer_kotlin.database.asDomainModel
 import com.example.explorer_kotlin.model.Item
@@ -20,22 +21,25 @@ import java.lang.Exception
 class ResultRepository (private val database: ResultDatabase){
 
     val resultItems : LiveData<List<Item>> = Transformations.map(database.itemDao.getResults()){
-       Log.d("ResultRepository","getting cache data, size is : ${it.size}")
-        for(i in it)
-        {
-            Log.d("ResultRepository",i.nasa_id)
-        }
         it.asDomainModel()
     }
 
     suspend fun refreshResults(query: String?, startYear: String?, endYear:String?, context: Context)
     {
-        Log.d("ResultRepository","inside refreshVideos()")
         Log.d("ResultRepository","query : ${query}, startYear: $startYear, endYear: $endYear")
         if(!Utils.isNetworkConnected(context))
-            throw Exception("no network")
+            throw Exception(context.getString(R.string.no_network_wrror_msg))
+
         withContext(Dispatchers.IO){
 
+            if(query.isNullOrEmpty() && startYear.isNullOrEmpty() && endYear.isNullOrEmpty())
+            {
+                if (database.itemDao.getCount() != 0)
+                {
+                    return@withContext
+                }
+
+            }
             val response = NasaApi.apiResponse.getSearchResults(query,
                     startYear,
                     endYear)
@@ -43,7 +47,7 @@ class ResultRepository (private val database: ResultDatabase){
             val networkContainer = NetworkResultContainer(response.collection.items)
             if(networkContainer.itemList.isEmpty())
             {
-                throw NoSuchPropertyException("no data found")
+                throw NoSuchPropertyException(context.getString(R.string.no_data_found_error_msg))
             }
 
             database.itemDao.deleteAll()

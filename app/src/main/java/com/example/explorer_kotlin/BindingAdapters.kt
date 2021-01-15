@@ -16,7 +16,7 @@ import com.example.explorer_kotlin.overview.SearchResultAdapter
 fun bindImage(imgView: ImageView, imgUrl: String?) {
 
     imgUrl?.let {
-        Log.d("BindingAdapters", "imgUrl received is : $imgUrl")
+       
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
                 .load(imgUri)

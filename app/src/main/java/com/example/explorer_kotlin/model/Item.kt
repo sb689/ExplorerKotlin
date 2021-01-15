@@ -18,10 +18,7 @@ data class NetworkResultContainer(val itemList: List<Item>)
 
 fun NetworkResultContainer.asDatabaseModel(): List<DatabaseItem> {
 
-
-
         return itemList.map {
-                Log.d("asDatabaseModel", it.data[0].nasa_id + "->"+ it.links[0].href )
                 DatabaseItem(
                         nasa_id = it.data[0].nasa_id,
                         date_created = it.data[0].date_created,
