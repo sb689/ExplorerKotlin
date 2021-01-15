@@ -10,9 +10,9 @@
       <td>Detail screen</td>
   </tr>
   <tr>
-    <td><img src="/screenshots/overview.png" width=270 height=480></td>
-    <td><img src="/screenshots/search.png" width=270 height=480></td>
-     <td><img src="/screenshots/details.png" width=270 height=480></td>
+    <td><img src="/screenShots/overview.png" width=270 height=480></td>
+    <td><img src="/screenShots/search.png" width=270 height=480></td>
+     <td><img src="/screenShots/details.png" width=270 height=480></td>
   </tr>
  
  </table>
