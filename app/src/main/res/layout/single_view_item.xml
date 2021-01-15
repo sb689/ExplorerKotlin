@@ -45,11 +45,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
 
-            style="@style/TextAppearance.AppCompat.Body2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:layout_marginTop="10dp"
-            android:textSize="17sp"
+            android:textSize="20sp"
             android:text ="@{property.data[0].title}"
-            android:textColor="@color/black"
+
 
             />
 
@@ -63,22 +63,23 @@
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             app:layout_constraintEnd_toEndOf="@+id/tv_title"
             android:layout_marginTop="10dp"
-            android:maxLines="4"
+            android:maxLines="3"
             android:ellipsize="end"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:text="@{property.data[0].description}"
-            android:textColor="@color/black"
+
             />
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="4dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_space_image"
+            android:backgroundTint="@color/white"
             />
 
 

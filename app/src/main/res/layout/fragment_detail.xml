@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".detail.DetailFragment">
+    tools:context=".detail.DetailFragment"
+
+    >
 
     <data>
         <variable
@@ -16,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/sv_detail"
+
             >
 
 
@@ -70,7 +73,7 @@
                     android:layout_marginTop="8dp"
                     android:textSize="@dimen/detail_label_text_size"
                     android:maxLines="2"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
 
 
                     />
@@ -102,8 +105,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_creator"
                     android:layout_marginTop="16dp"
                     android:textSize="@dimen/detail_label_text_size"
-
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     />
 
                 <TextView
