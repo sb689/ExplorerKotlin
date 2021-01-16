@@ -35,16 +35,24 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Item>?)
 }
 
 
-@BindingAdapter("searchStatus")
-fun bindStatus(statusImageView: ImageView, status: SearchQueryStatus?) {
+@BindingAdapter("searchStatus", "listSearchResult")
+fun bindStatus(statusImageView: ImageView, status: SearchQueryStatus?, data: List<Item>?) {
     when (status) {
         SearchQueryStatus.LOADING -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.loading_animation)
         }
         SearchQueryStatus.ERROR -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_connection_error)
+            Log.d("BindingAdapters", "error occurred")
+            if (data == null || data.isEmpty()) {
+                Log.d("BindingAdapters", "error occurred, data is null or empty")
+                statusImageView.visibility = View.VISIBLE
+                statusImageView.setImageResource(R.drawable.ic_connection_error)
+
+            } else {
+                Log.d("BindingAdapters", "error occurred, data present")
+                statusImageView.visibility = View.GONE
+            }
         }
         SearchQueryStatus.DONE -> {
             statusImageView.visibility = View.GONE

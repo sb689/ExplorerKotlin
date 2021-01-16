@@ -83,14 +83,17 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String? , a
                                   startYear: String?,
                                   endYear: String?
     ) {
+        _status.value = SearchQueryStatus.LOADING
         viewModelScope.launch {
+
             try {
-                _status.value = SearchQueryStatus.LOADING
+
                 resultRepository.refreshResults(query, startYear, endYear, getApplication())
                 _eventNetworkError.value = false
                 _status.value = SearchQueryStatus.DONE
 
             } catch (networkError: Exception) {
+                _status.value = SearchQueryStatus.ERROR
                 // Show a Toast error message and hide the progress bar.
                 if(networkError is NoSuchPropertyException) {
                     Log.d("OverViewVieModel", "NoSuchPropertyException received")
@@ -103,6 +106,7 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String? , a
             }
         }
     }
+
 
     fun onNetworkErrorShown() {
         _eventNetworkError.value = false
