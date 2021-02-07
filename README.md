@@ -19,7 +19,7 @@
 
 
 ## Project Overview
-Explorer is an android application that allows users to search through the NASA image directory. NASA has developed a rich archive of images from its few decades of space research and exploration. Users can search by a keyword or by year or by the combination of both. Users can select a search result from the list and check details. The application implements offline caching. The last search result is cached and displayed when the app gets started after a break. If there is no network connection or data not found with the provided search key, the cached result is displayed.
+Explorer is an android application that allows users to search through the NASA image directory. NASA has developed a rich archive of images from its few decades of space research and exploration. Users can search by a keyword or by year or by the combination of both. Users can select a search result from the list and check details. The application implements offline caching. The last search result is cached and displayed when the app gets started. If there is no network connection or data not found with the provided search key, the cached result is displayed.
 
 
 ## App Features

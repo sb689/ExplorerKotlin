@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,7 +21,7 @@ import com.example.explorer_kotlin.databinding.FragmentOverviewBinding
 class OverViewFragment : Fragment() {
 
 
-     lateinit var viewModel: OverViewViewModel
+    lateinit var viewModel: OverViewViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,14 +46,9 @@ class OverViewFragment : Fragment() {
 
         Log.d("OverviewFragment", "query = $query, startYear = $startYear, endYear = $endYear")
 
-        val activity = requireNotNull(this.activity)
-        val viewModelFactory = OverviewViewModelFactory(
-                query,
-                startYear,
-                endYear,
-                activity.application)
-
-        viewModel = viewModelFactory.let { ViewModelProvider(this, it).get(OverViewViewModel::class.java) }
+        val viewModelFactory = OverviewViewModelFactory(query, startYear, endYear, requireActivity().application)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+                .get(OverViewViewModel::class.java)
 
         binding.viewModel = viewModel
         binding.rvSearchResult.layoutManager = LinearLayoutManager(context)

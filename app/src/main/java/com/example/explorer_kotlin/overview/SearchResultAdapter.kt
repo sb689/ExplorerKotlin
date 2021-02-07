@@ -38,10 +38,11 @@ class SearchResultAdapter ( val onClickListener: OnClickListener)
     override fun onBindViewHolder(holder: SearchResultViewHolder, position: Int) {
 
        val property = getItem(position)
-        holder.bind(property)
+
         holder.itemView.setOnClickListener {
             onClickListener.onClick(property)
         }
+        holder.bind(property)
     }
 
     class OnClickListener(val clickListener: (property: Item) -> Unit){

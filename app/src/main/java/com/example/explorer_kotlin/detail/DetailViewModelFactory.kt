@@ -6,13 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.explorer_kotlin.model.Item
 
 class DetailViewModelFactory(
-        private val result: Item,
-        private val application: Application,
+        private val result: Item
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(result, application) as T
+            return DetailViewModel(result) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

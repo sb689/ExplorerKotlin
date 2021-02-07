@@ -6,17 +6,16 @@ import android.util.NoSuchPropertyException
 import androidx.lifecycle.*
 import com.example.explorer_kotlin.database.getDatabase
 import com.example.explorer_kotlin.model.Item
-import com.example.explorer_kotlin.model.SpaceResponse
-import com.example.explorer_kotlin.network.NasaApi
 import com.example.explorer_kotlin.repository.ResultRepository
 import kotlinx.coroutines.launch
-import java.io.IOException
+
+
 import java.lang.Exception
-import kotlin.math.log
+
 
 enum class ErrorType {NETWORK, NO_DATA}
 enum class SearchQueryStatus{ LOADING, ERROR, DONE}
-class OverViewViewModel (query:String?, startYear: String?, endYear: String? , app:Application): AndroidViewModel(app){
+class OverViewViewModel (query:String?, startYear: String?, endYear: String?, app: Application): AndroidViewModel(app){
 
     private val database = getDatabase(app)
     private val resultRepository = ResultRepository(database)
@@ -49,7 +48,7 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String? , a
 
 
     init {
-        getSearchResponse(query, startYear, endYear)
+        getSearchResponse(query, startYear, endYear, app)
 
     }
 
@@ -80,15 +79,16 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String? , a
 
     private fun getSearchResponse(
             query: String?,
-                                  startYear: String?,
-                                  endYear: String?
+            startYear: String?,
+            endYear: String?,
+            app : Application
     ) {
         _status.value = SearchQueryStatus.LOADING
         viewModelScope.launch {
 
             try {
 
-                resultRepository.refreshResults(query, startYear, endYear, getApplication())
+                resultRepository.refreshResults(query, startYear, endYear, app)
                 _eventNetworkError.value = false
                 _status.value = SearchQueryStatus.DONE
 
@@ -111,6 +111,8 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String? , a
     fun onNetworkErrorShown() {
         _eventNetworkError.value = false
     }
+
+
 
 
 }
