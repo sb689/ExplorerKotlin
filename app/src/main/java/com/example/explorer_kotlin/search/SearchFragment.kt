@@ -36,8 +36,8 @@ class SearchFragment : Fragment() {
         binding.lifecycleOwner = this
 
         searchViewModel.displaySearchResults.observe(viewLifecycleOwner, Observer {
-            if(it)
-            {
+            it.getContentIfNotHandled()?.let {
+
                 Log.d("SearchFragment", "searchClicked received")
                 Log.d("SearchFragment", "query = "+ binding.etQueryInput.text.toString())
                 Log.d("SearchFragment", "startYear = "+ binding.etStartYearInput.text.toString())
@@ -47,7 +47,6 @@ class SearchFragment : Fragment() {
                         binding.etQueryInput.text.toString(),
                         binding.etStartYearInput.text.toString(),
                         binding.etEndYearInput.text.toString()))
-                searchViewModel.searchResultDisplayComplete()
 
             }
         })

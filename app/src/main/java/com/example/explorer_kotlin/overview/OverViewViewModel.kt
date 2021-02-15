@@ -4,6 +4,8 @@ import android.app.Application
 import android.util.Log
 import android.util.NoSuchPropertyException
 import androidx.lifecycle.*
+import com.example.explorer_kotlin.Event
+
 import com.example.explorer_kotlin.database.getDatabase
 import com.example.explorer_kotlin.model.Item
 import com.example.explorer_kotlin.repository.ResultRepository
@@ -25,12 +27,12 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String?, ap
     get() = _status
 
 
-    private val _navigateToSelectedResult = MutableLiveData<Item>()
-    val navigateToSelectedResult: LiveData<Item>
+    private val _navigateToSelectedResult = MutableLiveData<Event<Item>>()
+    val navigateToSelectedResult: LiveData<Event<Item>>
         get() = _navigateToSelectedResult
 
-    private val _navigateToSearchPage = MutableLiveData<Boolean>()
-    val navigateToSearchPage: LiveData<Boolean>
+    private val _navigateToSearchPage = MutableLiveData<Event<Unit>>()
+    val navigateToSearchPage: LiveData<Event<Unit>>
     get() = _navigateToSearchPage
 
     val  response: LiveData<List<Item>> = resultRepository.resultItems
@@ -48,6 +50,7 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String?, ap
 
 
     init {
+        Log.d("OverViewViewModel", "init called................")
         getSearchResponse(query, startYear, endYear, app)
 
     }
@@ -57,25 +60,15 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String?, ap
     }
 
     fun displaySearchPage(){
-        _navigateToSearchPage.value = true
+
+        _navigateToSearchPage.value = Event(Unit)
     }
 
-    fun displaySearchPageComplete()
-    {
-        _navigateToSearchPage.value = false
-    }
 
     fun displayResultDetails(item: Item)
     {
-        _navigateToSelectedResult.value = item
+        _navigateToSelectedResult.value = Event(item)
     }
-
-    fun displayResultDetailsComplete()
-    {
-
-        _navigateToSelectedResult.value = null
-    }
-
 
     private fun getSearchResponse(
             query: String?,

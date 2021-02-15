@@ -15,7 +15,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.explorer_kotlin.R
 import com.example.explorer_kotlin.databinding.FragmentOverviewBinding
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class OverViewFragment : Fragment() {
@@ -58,16 +58,15 @@ class OverViewFragment : Fragment() {
         })
 
         viewModel.navigateToSelectedResult.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
+            it.getContentIfNotHandled()?.let {
                 this.findNavController().navigate(OverViewFragmentDirections.actionOverviewFragmentToDetailFragment(it))
-                viewModel.displayResultDetailsComplete()
+
             }
         })
 
         viewModel.navigateToSearchPage.observe(viewLifecycleOwner, Observer {
-            if (it) {
+            it.getContentIfNotHandled()?.let {
                 this.findNavController().navigate(OverViewFragmentDirections.actionOverviewFragmentToSearchFragment2())
-                viewModel.displaySearchPageComplete()
             }
         })
 

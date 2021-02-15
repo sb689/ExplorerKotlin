@@ -32,21 +32,6 @@
             tools:itemCount="16"
             tools:listitem="@layout/single_view_item" />
 
-<!--        <ProgressBar-->
-<!--            android:id="@+id/loading_spinner"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-
-
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            />-->
-
-<!--        app:isNetworkError = "@{safeUnbox(viewModel.eventNetworkError)}"
-            app:resultList = "@{viewModel.response}"-->
-
 
 
         <ImageView
