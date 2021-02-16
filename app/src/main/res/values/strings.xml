@@ -35,6 +35,6 @@
     <string name="default_query">earth</string>
     <string name="media_type">image</string>
     <string name="no_data_found_error_msg">"No data found for provided search key "</string>
-    <string name="no_network_wrror_msg">Network error</string>
+    <string name="no_network_error_msg">Network error</string>
 
 </resources>

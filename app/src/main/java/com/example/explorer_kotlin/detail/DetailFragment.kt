@@ -24,7 +24,7 @@ class DetailFragment : Fragment() {
 
 
         val binding = FragmentDetailBinding.inflate(inflater)
-        val application = requireNotNull(activity).application
+
         binding.lifecycleOwner = this
         val result = DetailFragmentArgs.fromBundle(requireArguments()).selectedResult
         val viewModel by viewModels<DetailViewModel> {

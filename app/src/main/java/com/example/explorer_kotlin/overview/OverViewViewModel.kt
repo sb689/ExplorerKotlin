@@ -16,7 +16,7 @@ import java.lang.Exception
 
 
 enum class ErrorType {NETWORK, NO_DATA}
-enum class SearchQueryStatus{ LOADING, ERROR, DONE}
+enum class SearchQueryStatus{ LOADING, ERROR, DONE, NO_DATA}
 class OverViewViewModel (query:String?, startYear: String?, endYear: String?, app: Application): AndroidViewModel(app){
 
     private val database = getDatabase(app)
@@ -37,27 +37,24 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String?, ap
 
     val  response: LiveData<List<Item>> = resultRepository.resultItems
 
-    private var _eventNetworkError = MutableLiveData<Boolean>(false)
-
-    val eventNetworkError: LiveData<Boolean>
+    private var _eventNetworkError = MutableLiveData<Event<Boolean>>()
+    val eventNetworkError: LiveData<Event<Boolean>>
         get() = _eventNetworkError
 
 
-    private var _noDataFound = MutableLiveData<Boolean>(false)
-    val noDataFound: LiveData<Boolean>
+    private var _noDataFound = MutableLiveData<Event<Boolean>>()
+    val noDataFound: LiveData<Event<Boolean>>
     get() = _noDataFound
 
 
 
     init {
         Log.d("OverViewViewModel", "init called................")
-        getSearchResponse(query, startYear, endYear, app)
+
+       // getSearchResponse(query, startYear, endYear, app)
 
     }
 
-    fun noDataFoundErrorShown(){
-        _noDataFound.value = false
-    }
 
     fun displaySearchPage(){
 
@@ -69,43 +66,5 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String?, ap
     {
         _navigateToSelectedResult.value = Event(item)
     }
-
-    private fun getSearchResponse(
-            query: String?,
-            startYear: String?,
-            endYear: String?,
-            app : Application
-    ) {
-        _status.value = SearchQueryStatus.LOADING
-        viewModelScope.launch {
-
-            try {
-
-                resultRepository.refreshResults(query, startYear, endYear, app)
-                _eventNetworkError.value = false
-                _status.value = SearchQueryStatus.DONE
-
-            } catch (networkError: Exception) {
-                _status.value = SearchQueryStatus.ERROR
-                // Show a Toast error message and hide the progress bar.
-                if(networkError is NoSuchPropertyException) {
-                    Log.d("OverViewVieModel", "NoSuchPropertyException received")
-                    _noDataFound.value = true
-                }
-                else {
-                    Log.d("OverViewVieModel", "exception received")
-                    _eventNetworkError.value = true
-                }
-            }
-        }
-    }
-
-
-    fun onNetworkErrorShown() {
-        _eventNetworkError.value = false
-    }
-
-
-
 
 }

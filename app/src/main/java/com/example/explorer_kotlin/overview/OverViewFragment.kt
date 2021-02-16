@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,7 +14,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.explorer_kotlin.R
 import com.example.explorer_kotlin.databinding.FragmentOverviewBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class OverViewFragment : Fragment() {
@@ -51,6 +49,7 @@ class OverViewFragment : Fragment() {
                 .get(OverViewViewModel::class.java)
 
         binding.viewModel = viewModel
+
         binding.rvSearchResult.layoutManager = LinearLayoutManager(context)
 
         binding.rvSearchResult.adapter = SearchResultAdapter(onClickListener = SearchResultAdapter.OnClickListener {
@@ -70,13 +69,19 @@ class OverViewFragment : Fragment() {
             }
         })
 
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
-            if (isNetworkError) onError(getString(R.string.no_network_wrror_msg),  ErrorType.NETWORK)
-        })
+        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer {
+            it.getContentIfNotHandled()?.let {
+                if(it) {
+                    onError(getString(R.string.no_network_error_msg), ErrorType.NETWORK)
+                }
+        }})
 
-        viewModel.noDataFound.observe(viewLifecycleOwner, Observer<Boolean> {
-            if (it) onError(getString(R.string.no_data_found_error_msg),  ErrorType.NO_DATA)
-        })
+        viewModel.noDataFound.observe(viewLifecycleOwner, Observer{
+            it.getContentIfNotHandled()?.let {
+                if(it) {
+                    onError(getString(R.string.no_data_found_error_msg), ErrorType.NO_DATA)
+                }
+        }})
 
         return binding.root
     }
@@ -84,10 +89,6 @@ class OverViewFragment : Fragment() {
     private fun onError(msg:String, type: ErrorType) {
 
             Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
-            when(type){
-                ErrorType.NO_DATA -> viewModel.noDataFoundErrorShown()
-                ErrorType.NETWORK -> viewModel.onNetworkErrorShown()
-            }
 
     }
 

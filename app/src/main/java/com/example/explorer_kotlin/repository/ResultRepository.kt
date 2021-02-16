@@ -10,7 +10,6 @@ import com.example.explorer_kotlin.database.ResultDatabase
 import com.example.explorer_kotlin.database.asDomainModel
 import com.example.explorer_kotlin.model.Item
 import com.example.explorer_kotlin.model.NetworkResultContainer
-import com.example.explorer_kotlin.model.SpaceResponse
 import com.example.explorer_kotlin.model.asDatabaseModel
 import com.example.explorer_kotlin.network.NasaApi
 import com.example.explorer_kotlin.network.Utils
@@ -28,7 +27,7 @@ class ResultRepository (private val database: ResultDatabase){
     {
         Log.d("ResultRepository","query : ${query}, startYear: $startYear, endYear: $endYear")
         if(!Utils.isNetworkConnected(context))
-            throw Exception(context.getString(R.string.no_network_wrror_msg))
+            throw Exception(context.getString(R.string.no_network_error_msg))
 
         withContext(Dispatchers.IO){
 
