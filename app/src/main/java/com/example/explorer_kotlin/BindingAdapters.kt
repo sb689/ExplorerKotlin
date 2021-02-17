@@ -4,6 +4,8 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -36,6 +38,20 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Item>?)
 }
 
 
+@BindingAdapter("savedDataStatus")
+fun bindStatus(statusTextView: TextView, data: List<Item>?) {
+
+    if(data.isNullOrEmpty())
+    {
+        Log.d("BindingAdapters", "bindStatus, data is null or empty")
+        statusTextView.visibility = View.VISIBLE
+
+    }else{
+        Log.d("BindingAdapters", "bindStatus, data is not null or empty")
+        statusTextView.visibility = View.GONE
+    }
+}
+
 @BindingAdapter("searchStatus")
 fun bindStatus(statusImageView: ImageView, status: SearchQueryStatus?) {
     when (status) {
@@ -44,40 +60,15 @@ fun bindStatus(statusImageView: ImageView, status: SearchQueryStatus?) {
             statusImageView.setImageResource(R.drawable.loading_animation)
         }
         SearchQueryStatus.ERROR -> {
-            Log.d("BindingAdapters", "error occurred")
+
             statusImageView.visibility = View.GONE
         }
         SearchQueryStatus.DONE -> {
             statusImageView.visibility = View.GONE
         }
         SearchQueryStatus.NO_DATA -> {
-            Log.d("BindingAdapters", "error occurred, data is null or empty")
+
             statusImageView.visibility = View.GONE
         }
     }
 }
-
-//@BindingAdapter("searchStatus", "listSearchResult")
-//fun bindStatus(statusImageView: ProgressBar, status: SearchQueryStatus?, data: List<Item>?) {
-//    when (status) {
-//        SearchQueryStatus.LOADING -> {
-//            statusImageView.visibility = View.VISIBLE
-//            //statusImageView.setImageResource(R.drawable.loading_animation)
-//        }
-//        SearchQueryStatus.ERROR -> {
-//            Log.d("BindingAdapters", "error occurred")
-//            if (data == null || data.isEmpty()) {
-//                Log.d("BindingAdapters", "error occurred, data is null or empty")
-//                statusImageView.visibility = View.GONE
-//                //statusImageView.setImageResource(R.drawable.ic_connection_error)
-//
-//            } else {
-//                Log.d("BindingAdapters", "error occurred, data present")
-//                statusImageView.visibility = View.GONE
-//            }
-//        }
-//        SearchQueryStatus.DONE -> {
-//            statusImageView.visibility = View.GONE
-//        }
-//    }
-//}

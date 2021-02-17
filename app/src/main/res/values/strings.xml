@@ -37,4 +37,7 @@
     <string name="no_data_found_error_msg">"No data found for provided search key "</string>
     <string name="no_network_error_msg">Network error</string>
 
+<!--    fragment overview-->
+    <string name="no_prev_saved_data">No previous search result found.</string>
+
 </resources>

@@ -14,13 +14,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.explorer_kotlin.R
-
 import com.example.explorer_kotlin.databinding.FragmentSearchBinding
-import com.example.explorer_kotlin.overview.ErrorType
-import com.example.explorer_kotlin.setupSnackbar
-import com.example.explorer_kotlin.showSnackbar
 import com.example.explorer_kotlin.showToast
-import com.google.android.material.snackbar.Snackbar
+
 
 
 class SearchFragment : Fragment() {
@@ -79,10 +75,6 @@ class SearchFragment : Fragment() {
             }
 
         })
-
-
-
-
         return binding.root;
     }
 

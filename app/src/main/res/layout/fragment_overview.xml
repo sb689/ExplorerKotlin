@@ -58,5 +58,20 @@
             android:contentDescription="@string/btn_search"
             android:onClick="@{() -> viewModel.displaySearchPage()}"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_error_msg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/light_grey"
+            android:textSize="22sp"
+            android:textAlignment="center"
+            android:text="@string/no_prev_saved_data"
+            app:savedDataStatus="@{viewModel.response}"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

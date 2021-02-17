@@ -14,12 +14,16 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.explorer_kotlin.R
 import com.example.explorer_kotlin.databinding.FragmentOverviewBinding
+import com.example.explorer_kotlin.search.SearchViewModel
+import com.example.explorer_kotlin.showToast
 
 
 class OverViewFragment : Fragment() {
 
 
-    lateinit var viewModel: OverViewViewModel
+    private val viewModel: OverViewViewModel by lazy {
+        ViewModelProvider(this).get(OverViewViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,19 +38,6 @@ class OverViewFragment : Fragment() {
 
         val binding = FragmentOverviewBinding.inflate(inflater)
         binding.lifecycleOwner = this
-
-
-        val args: OverViewFragmentArgs by navArgs()
-        var query = if(args.query.isNullOrEmpty() || args.query == "@") null else args.query
-        val startYear= if( args.startYear.isNullOrEmpty()|| args.startYear == "@") null else args.startYear
-        val endYear= if( args.endYear.isNullOrEmpty()|| args.endYear == "@") null else args.endYear
-
-
-        Log.d("OverviewFragment", "query = $query, startYear = $startYear, endYear = $endYear")
-
-        val viewModelFactory = OverviewViewModelFactory(query, startYear, endYear, requireActivity().application)
-        viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(OverViewViewModel::class.java)
 
         binding.viewModel = viewModel
 
@@ -69,27 +60,8 @@ class OverViewFragment : Fragment() {
             }
         })
 
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer {
-            it.getContentIfNotHandled()?.let {
-                if(it) {
-                    onError(getString(R.string.no_network_error_msg), ErrorType.NETWORK)
-                }
-        }})
-
-        viewModel.noDataFound.observe(viewLifecycleOwner, Observer{
-            it.getContentIfNotHandled()?.let {
-                if(it) {
-                    onError(getString(R.string.no_data_found_error_msg), ErrorType.NO_DATA)
-                }
-        }})
 
         return binding.root
-    }
-
-    private fun onError(msg:String, type: ErrorType) {
-
-            Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
-
     }
 
 

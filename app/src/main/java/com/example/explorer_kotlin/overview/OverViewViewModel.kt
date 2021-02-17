@@ -17,7 +17,7 @@ import java.lang.Exception
 
 enum class ErrorType {NETWORK, NO_DATA}
 enum class SearchQueryStatus{ LOADING, ERROR, DONE, NO_DATA}
-class OverViewViewModel (query:String?, startYear: String?, endYear: String?, app: Application): AndroidViewModel(app){
+class OverViewViewModel ( app: Application): AndroidViewModel(app){
 
     private val database = getDatabase(app)
     private val resultRepository = ResultRepository(database)
@@ -37,23 +37,11 @@ class OverViewViewModel (query:String?, startYear: String?, endYear: String?, ap
 
     val  response: LiveData<List<Item>> = resultRepository.resultItems
 
-    private var _eventNetworkError = MutableLiveData<Event<Boolean>>()
-    val eventNetworkError: LiveData<Event<Boolean>>
-        get() = _eventNetworkError
-
-
-    private var _noDataFound = MutableLiveData<Event<Boolean>>()
-    val noDataFound: LiveData<Event<Boolean>>
-    get() = _noDataFound
-
-
-
     init {
         Log.d("OverViewViewModel", "init called................")
 
-       // getSearchResponse(query, startYear, endYear, app)
-
     }
+
 
 
     fun displaySearchPage(){
