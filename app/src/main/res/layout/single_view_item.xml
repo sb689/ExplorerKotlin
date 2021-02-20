@@ -12,8 +12,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rv_motion_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:background="@drawable/touch_selector"
         >
 
 
@@ -22,13 +24,14 @@
             android:layout_width="0dp"
             app:layout_constraintWidth_percent=".45"
             android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             app:imageUrl="@{property.links[0].href}"
             />
+
 
 
         <TextView
@@ -82,6 +85,6 @@
             android:backgroundTint="@color/white"
             />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

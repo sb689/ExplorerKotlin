@@ -9,12 +9,15 @@ import com.example.explorer_kotlin.databinding.SingleViewItemBinding
 
 import com.example.explorer_kotlin.model.Item
 
-class SearchResultAdapter ( val onClickListener: OnClickListener)
+
+
+class SearchResultAdapter(val onClickListener: OnClickListener)
     :ListAdapter<Item, SearchResultAdapter.SearchResultViewHolder>(DiffCallback){
 
-    class SearchResultViewHolder(private var binding: SingleViewItemBinding): RecyclerView.ViewHolder(binding.root)
+    class SearchResultViewHolder(private var binding: SingleViewItemBinding):
+            RecyclerView.ViewHolder(binding.root)
     {
-        fun bind(itemData : Item)
+        fun bind(itemData: Item)
         {
             binding.property = itemData
             binding.executePendingBindings()
@@ -32,20 +35,27 @@ class SearchResultAdapter ( val onClickListener: OnClickListener)
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {
+
        return SearchResultViewHolder(SingleViewItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(holder: SearchResultViewHolder, position: Int) {
 
        val property = getItem(position)
-
         holder.itemView.setOnClickListener {
+
             onClickListener.onClick(property)
         }
         holder.bind(property)
     }
 
     class OnClickListener(val clickListener: (property: Item) -> Unit){
-        fun onClick (property: Item) = clickListener(property)
+
+        fun onClick(property: Item) {
+            clickListener(property)
+
+        }
     }
+
+
 }
