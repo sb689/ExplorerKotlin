@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.explorer_kotlin.databinding.SingleViewItemBinding
-
 import com.example.explorer_kotlin.model.Item
-
 
 
 class SearchResultAdapter(val onClickListener: OnClickListener)
@@ -43,7 +41,6 @@ class SearchResultAdapter(val onClickListener: OnClickListener)
 
        val property = getItem(position)
         holder.itemView.setOnClickListener {
-
             onClickListener.onClick(property)
         }
         holder.bind(property)

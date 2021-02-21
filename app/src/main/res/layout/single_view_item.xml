@@ -37,7 +37,6 @@
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
-
             android:layout_height="wrap_content"
             android:maxLines="3"
             android:ellipsize="end"
@@ -47,7 +46,6 @@
             app:layout_constraintTop_toTopOf="@id/iv_space_image"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:layout_marginTop="10dp"
             android:textSize="20sp"
@@ -59,7 +57,6 @@
         <TextView
             android:id="@+id/tv_short_desc"
             android:layout_width="0dp"
-
             android:layout_height="wrap_content"
             tools:text="This is one of the brightest stars of our galaxy. It shines on eastern sky just after sunset"
             app:layout_constraintStart_toStartOf="@+id/tv_title"

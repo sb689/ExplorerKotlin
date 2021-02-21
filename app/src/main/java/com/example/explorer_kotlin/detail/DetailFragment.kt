@@ -8,12 +8,22 @@ import android.widget.Toast
 import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.explorer_kotlin.databinding.FragmentDetailBinding
+import com.example.explorer_kotlin.model.Item
+import com.example.explorer_kotlin.overview.OverViewViewModel
 
 
 class DetailFragment : Fragment() {
 
     private lateinit var detector: GestureDetectorCompat
+    private var index: Int = -1
+    private var lastIndex = -1
+    private lateinit var result: Item
+    private lateinit var viewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,10 +37,11 @@ class DetailFragment : Fragment() {
 
         val binding = FragmentDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        val result = DetailFragmentArgs.fromBundle(requireArguments()).selectedResult
-        val viewModel by viewModels<DetailViewModel> {
-            DetailViewModelFactory(result)
-        }
+        result = DetailFragmentArgs.fromBundle(requireArguments()).selectedResult
+
+        val viewModelFactory = DetailViewModelFactory(result, requireActivity().application)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+                .get(DetailViewModel::class.java)
         binding.viewModel = viewModel
 
         detector = GestureDetectorCompat(context, GestureListener())
@@ -38,8 +49,14 @@ class DetailFragment : Fragment() {
             Log.d("DetailFragment", "touch event received on view")
 
             detector.onTouchEvent(event)
-            true
+
         }
+
+        viewModel.savedData.observe(viewLifecycleOwner, Observer {
+            index = viewModel.savedData.value?.indexOf(result)!!
+            lastIndex = viewModel.savedData.value!!.size - 1
+        })
+
         return binding.root
     }
 
@@ -87,22 +104,43 @@ class DetailFragment : Fragment() {
         }
     }
 
-        private fun onSwipeUp() {
-            Toast.makeText(context, "swiped up", Toast.LENGTH_LONG).show()
-        }
-
-        private fun onSwipeDown() {
-            Toast.makeText(context, "swiped down", Toast.LENGTH_LONG).show()
-        }
-
-
-        private fun onSwipeRight() {
-            Toast.makeText(context, "swiped right", Toast.LENGTH_LONG).show()
-        }
-
-        private fun onSwipeLeft() {
-            Toast.makeText(context, "swiped left", Toast.LENGTH_LONG).show()
-        }
-
+    private fun onSwipeUp() {
+       // Toast.makeText(context, "swiped up", Toast.LENGTH_LONG).show()
     }
+
+    private fun onSwipeDown() {
+       // Toast.makeText(context, "swiped down", Toast.LENGTH_LONG).show()
+    }
+
+
+    private fun onSwipeRight() {
+        val item = viewModel.savedData.value?.get(getNextIndex())!!
+        viewModel.changeDisplayedData(item)
+    }
+
+    private fun getNextIndex(): Int {
+        index = if (index == lastIndex) {
+            0
+        } else {
+            index + 1
+        }
+        return index
+    }
+
+    private fun onSwipeLeft() {
+        val item = viewModel.savedData.value?.get(getPrevIndex())!!
+        viewModel.changeDisplayedData(item)
+    }
+
+    private fun getPrevIndex(): Int {
+        if (index == 0) {
+            index = lastIndex
+        } else {
+            index = index - 1
+        }
+        return index
+    }
+
+
+}
 

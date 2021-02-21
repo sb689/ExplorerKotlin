@@ -23,6 +23,7 @@ class ResultRepository (private val database: ResultDatabase){
         it.asDomainModel()
     }
 
+
     suspend fun refreshResults(query: String?, startYear: String?, endYear:String?, context: Context)
     {
         Log.d("ResultRepository","query : ${query}, startYear: $startYear, endYear: $endYear")

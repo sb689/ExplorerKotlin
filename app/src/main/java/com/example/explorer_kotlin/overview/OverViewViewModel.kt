@@ -37,12 +37,6 @@ class OverViewViewModel ( app: Application): AndroidViewModel(app){
 
     val  response: LiveData<List<Item>> = resultRepository.resultItems
 
-    init {
-        Log.d("OverViewViewModel", "init called................")
-
-    }
-
-
 
     fun displaySearchPage(){
 

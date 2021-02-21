@@ -31,11 +31,7 @@
             app:listSearchResult="@{viewModel.response}"
             tools:itemCount="16"
             tools:listitem="@layout/single_view_item"
-
             />
-
-
-
 
         <ImageView
             android:id="@+id/status_image"
