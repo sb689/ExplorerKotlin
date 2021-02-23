@@ -2,7 +2,7 @@
 <resources>
 
 <!--    Detail fragment-->
-    <dimen name="detail_group_margin_start">12dp</dimen>
+    <dimen name="detail_group_margin_start">16dp</dimen>
     <dimen name="description_text_margin_end">8dp</dimen>
     <dimen name="label_creator_width_percent">0.45</dimen>
     <dimen name="tv_creator_width_percent">0.50</dimen>
@@ -32,5 +32,6 @@
     <dimen name="query_label_text_size">17sp</dimen>
     <dimen name="search_button_text_size">15sp</dimen>
     <dimen name="search_fragment_intro_top">60dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
 
 </resources>

@@ -1,20 +1,16 @@
 package com.example.explorer_kotlin.detail
 
 import android.os.Bundle
-import android.text.method.Touch.onTouchEvent
 import android.util.Log
 import android.view.*
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.explorer_kotlin.databinding.FragmentDetailBinding
 import com.example.explorer_kotlin.model.Item
-import com.example.explorer_kotlin.overview.OverViewViewModel
+
 
 
 class DetailFragment : Fragment() {
@@ -37,15 +33,18 @@ class DetailFragment : Fragment() {
 
         val binding = FragmentDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
+
+
         result = DetailFragmentArgs.fromBundle(requireArguments()).selectedResult
 
         val viewModelFactory = DetailViewModelFactory(result, requireActivity().application)
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(DetailViewModel::class.java)
+
         binding.viewModel = viewModel
 
         detector = GestureDetectorCompat(context, GestureListener())
-        binding.svDetail.setOnTouchListener { v, event ->
+        binding.svDetail .setOnTouchListener { v, event ->
             Log.d("DetailFragment", "touch event received on view")
 
             detector.onTouchEvent(event)
@@ -142,5 +141,16 @@ class DetailFragment : Fragment() {
     }
 
 
+    override fun onStop() {
+
+        super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+    }
+
+    override fun onResume() {
+
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
 }
 
